@@ -14,13 +14,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Embed version in Dockerfile
-      run: sed -i "s/version=dev/version=${{ github.event.inputs.version }}/" Dockerfile; cat Dockerfile
+      run: sed -i "s/version=dev/version=${{ github.event.inputs.version }}/" Dockerfile
     - name: Create release commit
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: EndBug/add-and-commit@v7
       with:
         commit_message: "Version ${{ github.event.inputs.version }}"
-        branch: refs/heads/rel-${{ github.event.inputs.version}}
-        tagging_message: ${{ github.event.inputs.version}}
+        message: "Update version to ${{ github.event.inputs.version }}"
+        tag: ${{ github.event.inputs.version }}
+        add: Dockerfile
     - name: Create Release
       uses: actions/create-release@v1
       env:
