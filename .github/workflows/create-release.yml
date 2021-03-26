@@ -20,7 +20,6 @@ jobs:
       with:
         commit_message: "Version ${{ github.event.inputs.version }}"
         tagging_message: ${{ github.event.inputs.version}}
-        branch: rel-${{ github.event.inputs.version}}
     - name: Create Release
       uses: actions/create-release@v1
       env:
